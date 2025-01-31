@@ -18,11 +18,12 @@ async function takeScreenshot() {
                 deviceScaleFactor: 1,
             }
         });
+        
 
         const page = await browser.newPage();
         
         console.log('Navigating to page...');
-        await page.goto('TU_URL_DE_METABASE', {
+        await page.goto('https://morada-uno.metabaseapp.com/public/dashboard/347ac500-f1b8-4672-aca2-c6c05bc9e280', {
             waitUntil: ['networkidle0', 'domcontentloaded'],
             timeout: 60000
         });
