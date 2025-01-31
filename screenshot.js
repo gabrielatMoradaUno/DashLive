@@ -17,7 +17,7 @@ async function takeScreenshot() {
         });
 
         // Reemplaza esta URL con la URL pública de tu dashboard de Metabase
-        await page.goto('https://morada-uno.metabaseapp.com/public/question/6ffd5471-a42f-43cd-9eef-52e2e0476c45', {
+        await page.goto('https://morada-uno.metabaseapp.com/public/dashboard/347ac500-f1b8-4672-aca2-c6c05bc9e280', {
             waitUntil: 'networkidle0',
             timeout: 60000
         });
