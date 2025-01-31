@@ -34,7 +34,7 @@ async function takeScreenshot() {
         await page.waitForSelector('body', { visible: true, timeout: 90000 });
 
         console.log('Extra waiting time for full rendering...');
-        await page.waitForTimeout(15000);  // 15 segundos adicionales
+        await new Promise(resolve => setTimeout(resolve, 15000)); // Reemplazo de waitForTimeout()
 
         console.log('Taking high-quality screenshot...');
         await page.screenshot({
