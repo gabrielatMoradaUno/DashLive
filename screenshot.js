@@ -25,7 +25,7 @@ async function takeScreenshot() {
         await page.setCacheEnabled(true);
 
         console.log('Navigating to dashboard...');
-        await page.goto('https://morada-uno.metabaseapp.com/public/dashboard/b11bf7dc-7159-4d29-8a98-1703f8c6fff2', {
+        await page.goto('https://morada-uno.metabaseapp.com/public/question/b42df2a2-5679-4860-b0e7-d3b26bcf18ae', {
             waitUntil: ['networkidle2', 'domcontentloaded'],
             timeout: 90000  // Aumentamos el tiempo de espera
         });
