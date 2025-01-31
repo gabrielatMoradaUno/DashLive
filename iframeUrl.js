@@ -3,7 +3,8 @@
 const jwt = require("jsonwebtoken");
 
 const METABASE_SITE_URL = "https://morada-uno.metabaseapp.com";
-const METABASE_SECRET_KEY = "9d251d24778c7db3433b6263ec7f5f9243fe960370cee39cbcf461deddc4e618";
+const METABASE_SECRET_KEY =  METABASE_SECRET_KEY;
+
 
 const payload = {
   resource: { question: 8944 },
