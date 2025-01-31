@@ -3,60 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Embebido</title>
+    <title>Dashboard Metabase</title>
     <style>
         body {
             margin: 0;
             padding: 20px;
             font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
         }
-        .dashboard-container {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-        iframe {
-            border: none;
+        #dashboard {
             width: 100%;
             height: 800px;
+            border: none;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: white;
         }
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <h1>Mi Dashboard</h1>
-        <div id="dashboard-embed"></div>
+    <div class="container">
+        <iframe id="dashboard"></iframe>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonwebtoken/9.0.0/jsonwebtoken.min.js"></script>
+    <!-- Importar jwt-encode desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jwt-encode/3.1.2/jwt-encode.min.js"></script>
+    
     <script>
         const METABASE_SITE_URL = "https://morada-uno.metabaseapp.com";
         const METABASE_SECRET_KEY = "9d251d24778c7db3433b6263ec7f5f9243fe960370cee39cbcf461deddc4e618";
-        
-        // Crear el payload para el token JWT
-        const payload = {
-            resource: { question: 6173 },
-            params: {},
-            exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minutos de expiración
-        };
 
-        // Generar el token
-        const token = window.jwt.sign(payload, METABASE_SECRET_KEY);
-        
-        // Construir la URL del iframe
-        const iframeUrl = METABASE_SITE_URL + "/embed/question/" + token + "#bordered=true&titled=true";
+        function updateDashboard() {
+            // Crear el payload
+            const payload = {
+                resource: { question: 6173 },
+                params: {},
+                exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minutos de expiración
+            };
 
-        // Crear y agregar el iframe
-        document.getElementById('dashboard-embed').innerHTML = `
-            <iframe
-                src="${iframeUrl}"
-                frameborder="0"
-                width="800"
-                height="600"
-                allowtransparency  
-            ></iframe>
-        `;
+            // Generar el token usando jwt-encode
+            const token = window.jwt_encode(payload, METABASE_SECRET_KEY);
+            
+            // Construir la URL del iframe
+            const iframeUrl = `${METABASE_SITE_URL}/embed/question/${token}#bordered=true&titled=true`;
+            
+            // Actualizar el src del iframe
+            document.getElementById('dashboard').src = iframeUrl;
+        }
+
+        // Actualizar inicialmente
+        updateDashboard();
+
+        // Actualizar cada 9 minutos para mantener el token fresco
+        setInterval(updateDashboard, 9 * 60 * 1000);
     </script>
 </body>
 </html>
