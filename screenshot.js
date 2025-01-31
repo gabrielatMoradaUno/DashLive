@@ -18,7 +18,6 @@ async function takeScreenshot() {
                 deviceScaleFactor: 1,
             }
         });
-        
 
         const page = await browser.newPage();
         
@@ -29,14 +28,13 @@ async function takeScreenshot() {
         });
 
         console.log('Waiting for content to stabilize...');
-        // Espera usando setTimeout
         await new Promise(resolve => setTimeout(resolve, 5000));
 
         console.log('Taking screenshot...');
         await page.screenshot({
             path: 'dashboard.png',
             fullPage: true,
-            quality: 100
+            type: 'png'
         });
 
         console.log('Screenshot taken successfully!');
