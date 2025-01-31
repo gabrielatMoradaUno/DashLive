@@ -26,15 +26,15 @@ async function takeScreenshot() {
 
         console.log('Navigating to dashboard...');
         await page.goto('https://morada-uno.metabaseapp.com/public/dashboard/b11bf7dc-7159-4d29-8a98-1703f8c6fff2', {
-            waitUntil: ['networkidle0', 'domcontentloaded'],
-            timeout: 60000
+            waitUntil: ['networkidle2', 'domcontentloaded'],
+            timeout: 90000  // Aumentamos el tiempo de espera
         });
 
-        console.log('Waiting for dashboard to load...');
-        await page.waitForSelector('.Dashboard', { visible: true, timeout: 60000 });
+        console.log('Waiting for body to load...');
+        await page.waitForSelector('body', { visible: true, timeout: 90000 });
 
-        console.log('Waiting an extra 5 seconds for animations or async data...');
-        await page.waitForTimeout(5000);
+        console.log('Extra waiting time for full rendering...');
+        await page.waitForTimeout(15000);  // 15 segundos adicionales
 
         console.log('Taking high-quality screenshot...');
         await page.screenshot({
