@@ -2,8 +2,11 @@ name: Update Dashboard Screenshot
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Ejecutar cada 30 minutos
-  workflow_dispatch:  # Permite ejecutar manualmente
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write  # Permiso para hacer push al repositorio
 
 jobs:
   update-screenshot:
@@ -11,7 +14,9 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
-      
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -30,4 +35,4 @@ jobs:
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           git add dashboard.png
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update dashboard screenshot" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update dashboard screenshot" && git push origin main)
